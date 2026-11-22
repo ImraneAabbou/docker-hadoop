@@ -26,6 +26,14 @@ To deploy an the HDFS-Spark-Hive cluster, run:
 The `--build` parameter is needed as there are some services with slightly customized Dockerfiles to fix missing features
 /add another ones (like persistence in the HDFS space after across restarts)
 
+## Shared data folder
+
+The `data/` directory at the root of this repository is bind-mounted at `/data` in the
+namenode, datanode, nodemanager, spark-master, spark-worker-1, hive-server and
+presto-coordinator containers. Put input files in `data/` on the host and read or write
+them as `/data/<file>` from any of those containers. Content of `data/` is ignored by Git
+(except the `.gitkeep` placeholder), so input datasets stay local.
+
 `docker-compose` creates a docker network that can be found by running `docker network list`, e.g. `docker-hadoop-spark-hive_default`.
 
 Run `docker network inspect` on the network (e.g. `docker-hadoop-spark-hive_default`) to find the IP the hadoop interfaces are published on. Access these interfaces with the following URLs:
