@@ -201,7 +201,7 @@ connect Intellij with the docker (in a remote machine):
 - Be aware we've published the port `4747` in `spark-master` container. This is the port we will use to make the jvm listen for connections to start a debugging session
 - Given this port we have to create in Intellij a **Run configuration** with type **Remote JVM debug**
 - Debug mode has to be **Attach to remote JVM**
-- **Host** is the IP where the remote JVM is going to be running. This is **not** the Docker IP as the host IP. We've already published the port in the container, and this is automatically published to the network by Docker. So if the `spark-master` container IP is _172.29.1.10_ and the host machine is **192.168.1.22**, the latter is what we have to set in Intellij for **Host**.
+- **Host** is the address of the machine running Docker (e.g. **192.168.1.22**), not the container's internal IP: the published port is forwarded to the host, so use the host address in Intellij's **Host** field.
 - **Port** is 4747, but it can be whatever always it matches with the port (address) in the configuration **and** is published in the container
 - So the preview port is related to the arguments for the remote JVM: `-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=4747`
 
